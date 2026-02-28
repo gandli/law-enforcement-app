@@ -46,7 +46,7 @@ struct HomeView: View {
                     // Recent Leads Section
                     VStack(alignment: .leading, spacing: 16) {
                         HStack {
-                            Text("最近采集")
+                            Text("最新稽查")
                                 .font(.title2)
                                 .fontWeight(.bold)
                             Spacer()

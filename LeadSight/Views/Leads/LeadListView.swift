@@ -14,8 +14,8 @@ struct LeadListView: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("线索")
-            .searchable(text: $searchText, prompt: "搜索线索、地点或人员")
+            .navigationTitle("稽查线索")
+            .searchable(text: $searchText, prompt: "搜索零售户、证号或稽查地点")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {}) {
