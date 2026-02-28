@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @Environment(DataStore.self) private var dataStore
-    
     var body: some View {
         TabView {
             HomeView()
@@ -12,7 +10,7 @@ struct MainTabView: View {
             
             LeadListView()
                 .tabItem {
-                    Label("线索", systemImage: "list.bullet.rectangle.portrait.fill")
+                    Label("稽查线索", systemImage: "list.bullet.rectangle.portrait.fill")
                 }
             
             ProfileView()
@@ -20,12 +18,11 @@ struct MainTabView: View {
                     Label("我的", systemImage: "person.fill")
                 }
         }
-        .accentColor(.blue)
+        .tint(.blue)
     }
 }
 
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView()
-    }
+#Preview {
+    MainTabView()
+        .environment(DataStore())
 }

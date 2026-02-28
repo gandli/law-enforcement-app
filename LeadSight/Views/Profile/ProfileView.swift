@@ -2,38 +2,40 @@ import SwiftUI
 
 struct ProfileView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
-                Section(header: Text("个人信息")) {
+                Section("个人信息") {
                     HStack {
                         Image(systemName: "person.crop.circle.fill")
                             .font(.system(size: 60))
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                         VStack(alignment: .leading) {
                             Text("执勤人员")
                                 .font(.headline)
                             Text("编号: SP-9527")
                                 .font(.subheadline)
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                         }
                     }
                     .padding(.vertical, 8)
                 }
                 
-                Section(header: Text("统计")) {
+                Section("统计") {
                     HStack {
-                        Label("今日采集", systemImage: "pencil.and.outline")
+                        Label("今日稽查", systemImage: "pencil.and.outline")
                         Spacer()
                         Text("12")
+                            .foregroundStyle(.secondary)
                     }
                     HStack {
                         Label("待处理线索", systemImage: "clock")
                         Spacer()
                         Text("5")
+                            .foregroundStyle(.secondary)
                     }
                 }
                 
-                Section(header: Text("系统")) {
+                Section("系统") {
                     NavigationLink(destination: Text("设置")) {
                         Label("设置", systemImage: "gearshape")
                     }
@@ -43,20 +45,17 @@ struct ProfileView: View {
                 }
                 
                 Section {
-                    Button(action: {}) {
+                    Button(role: .destructive, action: {}) {
                         Text("退出登录")
-                            .foregroundColor(.red)
                     }
                 }
             }
-            .listStyle(InsetGroupedListStyle())
+            .listStyle(.insetGrouped)
             .navigationTitle("我的")
         }
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
-    }
+#Preview {
+    ProfileView()
 }
