@@ -32,15 +32,16 @@ struct WarningCard: View {
         }
         .padding()
         .frame(width: 260, height: 160)
-        .background(Color(UIColor.secondarySystemBackground))
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        .background(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(Color(UIColor.secondarySystemBackground))
+                .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
+        )
     }
 }
 
-struct WarningCard_Previews: PreviewProvider {
-    static var previews: some View {
-        WarningCard(warning: Warning.mockWarnings[0])
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    let dataStore = DataStore()
+    return WarningCard(warning: dataStore.warnings[0])
+        .padding()
 }

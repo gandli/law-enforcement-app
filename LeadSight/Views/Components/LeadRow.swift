@@ -7,12 +7,12 @@ struct LeadRow: View {
         HStack(spacing: 16) {
             // Image Placeholder/Thumbnail
             ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.blue.opacity(0.1))
-                    .frame(width: 70, height: 70)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.1), Color.blue.opacity(0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(width: 64, height: 64)
                 
                 Image(systemName: lead.imageName == "fire_lane" ? "flame.fill" : "person.2.fill")
-                    .font(.title2)
+                    .font(.system(size: 24, weight: .medium))
                     .foregroundColor(.blue)
             }
             
@@ -43,9 +43,8 @@ struct LeadRow: View {
     }
 }
 
-struct LeadRow_Previews: PreviewProvider {
-    static var previews: some View {
-        LeadRow(lead: Lead.mockLeads[0])
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    let dataStore = DataStore()
+    return LeadRow(lead: dataStore.leads[0])
+        .padding(.horizontal)
 }

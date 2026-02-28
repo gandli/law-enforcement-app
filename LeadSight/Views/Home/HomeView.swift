@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(DataStore.self) private var dataStore
     let userName = "执勤人员"
     let dutyID = "SP-9527"
     
@@ -22,7 +23,7 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 16) {
-                                ForEach(Warning.mockWarnings) { warning in
+                                ForEach(dataStore.warnings) { warning in
                                     WarningCard(warning: warning)
                                 }
                             }
@@ -55,10 +56,10 @@ struct HomeView: View {
                         .padding(.horizontal)
                         
                         VStack(spacing: 0) {
-                            ForEach(Lead.mockLeads) { lead in
+                            ForEach(dataStore.leads) { lead in
                                 LeadRow(lead: lead)
                                     .padding(.horizontal)
-                                if lead.id != Lead.mockLeads.last?.id {
+                                if lead.id != dataStore.leads.last?.id {
                                     Divider().padding(.leading, 86)
                                 }
                             }
@@ -85,8 +86,7 @@ struct HomeView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
+#Preview {
+    HomeView()
+        .environment(DataStore())
 }

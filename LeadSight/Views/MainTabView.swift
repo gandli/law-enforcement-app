@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @Environment(DataStore.self) private var dataStore
+    
     var body: some View {
         TabView {
             HomeView()

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct LeadSightApp: App {
+    @State private var dataStore = DataStore()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView()
+                .environment(dataStore)
         }
     }
 }

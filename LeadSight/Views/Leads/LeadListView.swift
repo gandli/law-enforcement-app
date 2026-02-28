@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct LeadListView: View {
+    @Environment(DataStore.self) private var dataStore
     @State private var searchText = ""
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(Lead.mockLeads) { lead in
+                ForEach(dataStore.leads) { lead in
                     NavigationLink(destination: LeadDetailView(lead: lead)) {
                         LeadRow(lead: lead)
                     }
@@ -26,8 +27,7 @@ struct LeadListView: View {
     }
 }
 
-struct LeadListView_Previews: PreviewProvider {
-    static var previews: some View {
-        LeadListView()
-    }
+#Preview {
+    LeadListView()
+        .environment(DataStore())
 }
