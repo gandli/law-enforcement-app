@@ -78,7 +78,9 @@ struct AddLeadView: View {
                             reporter: reporter,
                             status: status,
                             aiAnalysis: nil,
-                            imageName: stage.imageName
+                            imageName: stage.imageName,
+                            evidences: [],
+                            relatedLeadIDs: []
                         )
                         dataStore.addLead(newLead)
                         dismiss()

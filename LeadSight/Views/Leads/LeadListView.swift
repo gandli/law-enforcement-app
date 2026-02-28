@@ -12,7 +12,8 @@ struct LeadListView: View {
         return dataStore.leads.filter { lead in
             lead.title.localizedCaseInsensitiveContains(searchText) ||
             lead.location.localizedCaseInsensitiveContains(searchText) ||
-            lead.reporter.localizedCaseInsensitiveContains(searchText)
+            lead.reporter.localizedCaseInsensitiveContains(searchText) ||
+            lead.searchableEvidenceText.localizedCaseInsensitiveContains(searchText)
         }
     }
     

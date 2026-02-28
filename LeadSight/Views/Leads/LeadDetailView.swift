@@ -3,6 +3,7 @@ import SwiftUI
 struct LeadDetailView: View {
     @Environment(DataStore.self) private var dataStore
     let lead: Lead
+    @State private var showingCollector = false
     
     var body: some View {
         ScrollView {
@@ -92,6 +93,36 @@ struct LeadDetailView: View {
                 }
                 .padding(.horizontal)
                 
+                Divider().padding(.horizontal)
+                
+                // Evidence Gallery
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Image(systemName: "photo.on.rectangle.angled")
+                            .foregroundStyle(.blue)
+                        Text("证据 (\(lead.evidences.count))")
+                            .font(.headline)
+                        Spacer()
+                        Button {
+                            showingCollector = true
+                        } label: {
+                            Label("采集", systemImage: "plus.circle.fill")
+                                .font(.subheadline)
+                        }
+                    }
+                    
+                    EvidenceGalleryView(evidences: lead.evidences)
+                }
+                .padding(.horizontal)
+                
+                Divider().padding(.horizontal)
+                
+                // AI Correlation
+                AICorrelationView(lead: lead)
+                    .padding(.horizontal)
+                
+                Divider().padding(.horizontal)
+                
                 // Action Buttons
                 VStack(spacing: 12) {
                     if lead.status == .pending {
@@ -139,6 +170,12 @@ struct LeadDetailView: View {
             .padding(.vertical)
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(for: Evidence.self) { evidence in
+            EvidenceDetailView(evidence: evidence)
+        }
+        .sheet(isPresented: $showingCollector) {
+            EvidenceCollectorView(leadID: lead.id)
+        }
     }
 }
 
