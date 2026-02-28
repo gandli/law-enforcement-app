@@ -32,4 +32,21 @@ class DataStore {
     func deleteLead(at offsets: IndexSet) {
         leads.remove(atOffsets: offsets)
     }
+    
+    func updateLeadStatus(_ leadID: UUID, to newStatus: Lead.LeadStatus) {
+        if let index = leads.firstIndex(where: { $0.id == leadID }) {
+            let old = leads[index]
+            leads[index] = Lead(
+                id: old.id,
+                title: old.title,
+                location: old.location,
+                timestamp: old.timestamp,
+                content: old.content,
+                reporter: old.reporter,
+                status: newStatus,
+                aiAnalysis: old.aiAnalysis,
+                imageName: old.imageName
+            )
+        }
+    }
 }

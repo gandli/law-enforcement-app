@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct Warning: Identifiable, Codable {
+struct Warning: Identifiable, Codable, Hashable {
     let id: UUID
     let type: String
     let title: String
@@ -24,5 +24,3 @@ struct Warning: Identifiable, Codable {
         }
     }
 }
-
-

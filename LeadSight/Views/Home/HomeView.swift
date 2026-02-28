@@ -15,7 +15,10 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack(spacing: 16) {
                                 ForEach(dataStore.warnings) { warning in
-                                    WarningCard(warning: warning)
+                                    NavigationLink(value: warning) {
+                                        WarningCard(warning: warning)
+                                    }
+                                    .buttonStyle(.plain)
                                 }
                             }
                             .padding(.horizontal)
@@ -37,8 +40,11 @@ struct HomeView: View {
                         
                         LazyVStack(spacing: 0) {
                             ForEach(dataStore.leads) { lead in
-                                LeadRow(lead: lead)
-                                    .padding(.horizontal)
+                                NavigationLink(value: lead) {
+                                    LeadRow(lead: lead)
+                                        .padding(.horizontal)
+                                }
+                                .buttonStyle(.plain)
                                 if lead.id != dataStore.leads.last?.id {
                                     Divider().padding(.leading, 86)
                                 }
@@ -49,6 +55,12 @@ struct HomeView: View {
                 .padding(.vertical)
             }
             .navigationTitle("首页")
+            .navigationDestination(for: Warning.self) { warning in
+                WarningDetailView(warning: warning)
+            }
+            .navigationDestination(for: Lead.self) { lead in
+                LeadDetailView(lead: lead)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {}) {

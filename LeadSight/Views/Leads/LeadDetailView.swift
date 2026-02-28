@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct LeadDetailView: View {
+    @Environment(DataStore.self) private var dataStore
     let lead: Lead
     
     var body: some View {
@@ -91,6 +92,48 @@ struct LeadDetailView: View {
                 }
                 .padding(.horizontal)
                 
+                // Action Buttons
+                VStack(spacing: 12) {
+                    if lead.status == .pending {
+                        Button {
+                            dataStore.updateLeadStatus(lead.id, to: .investigating)
+                        } label: {
+                            Label("标记为调查中", systemImage: "magnifyingglass")
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.blue)
+                    }
+                    
+                    if lead.status == .pending || lead.status == .investigating {
+                        Button {
+                            dataStore.updateLeadStatus(lead.id, to: .resolved)
+                        } label: {
+                            Label("标记为已解决", systemImage: "checkmark.circle.fill")
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.green)
+                    }
+                    
+                    if lead.status != .archived {
+                        Button {
+                            dataStore.updateLeadStatus(lead.id, to: .archived)
+                        } label: {
+                            Label("归档", systemImage: "archivebox")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+                
                 Spacer()
             }
             .padding(.vertical)
@@ -102,5 +145,6 @@ struct LeadDetailView: View {
 #Preview {
     NavigationStack {
         LeadDetailView(lead: DataStore().leads[0])
+            .environment(DataStore())
     }
 }
