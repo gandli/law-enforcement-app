@@ -2,10 +2,12 @@ import SwiftUI
 
 struct EmergencyButton: View {
     var action: () -> Void
+    @State private var isPressed = false
     
     var body: some View {
         Button(action: {
             let generator = UINotificationFeedbackGenerator()
+            generator.prepare()
             generator.notificationOccurred(.error)
             action()
         }) {
@@ -38,9 +40,7 @@ struct EmergencyButton: View {
     }
 }
 
-struct EmergencyButton_Previews: PreviewProvider {
-    static var previews: some View {
-        EmergencyButton(action: {})
-            .previewLayout(.sizeThatFits)
-    }
+#Preview {
+    EmergencyButton(action: {})
+        .padding()
 }

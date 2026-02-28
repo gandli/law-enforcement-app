@@ -11,9 +11,8 @@ struct WarningCard: View {
                     .fontWeight(.bold)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(warning.severity.color.opacity(0.2))
-                    .foregroundColor(warning.severity.color)
-                    .cornerRadius(4)
+                    .background(warning.severity.color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+                    .foregroundStyle(warning.severity.color)
                 
                 Spacer()
                 
@@ -24,11 +23,11 @@ struct WarningCard: View {
             
             Text(warning.title)
                 .font(.headline)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
             
             Text(warning.description)
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
                 .lineLimit(2)
         }
         .padding()
@@ -42,7 +41,6 @@ struct WarningCard: View {
 }
 
 #Preview {
-    let dataStore = DataStore()
-    return WarningCard(warning: dataStore.warnings[0])
+    WarningCard(warning: DataStore().warnings[0])
         .padding()
 }

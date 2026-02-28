@@ -8,25 +8,36 @@ struct LeadDetailView: View {
             VStack(alignment: .leading, spacing: 20) {
                 // Media Section
                 ZStack {
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.gray.opacity(0.1))
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(.fill.quaternary)
                         .frame(height: 200)
                     
-                    VStack {
+                    VStack(spacing: 8) {
                         Image(systemName: "photo.fill")
                             .font(.system(size: 50))
-                            .foregroundColor(.gray)
+                            .foregroundStyle(.secondary)
                         Text("现场图片_4829.jpg")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.tertiary)
                     }
                 }
                 .padding(.horizontal)
                 
-                // Info Section
+                // Status Badge + Info Section
                 VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Text(lead.status.rawValue)
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .foregroundStyle(.white)
+                            .background(lead.status.color, in: Capsule())
+                        Spacer()
+                    }
+                    
                     Text(lead.title)
-                        .font(.title)
+                        .font(.title2)
                         .fontWeight(.bold)
                     
                     HStack {
@@ -35,7 +46,7 @@ struct LeadDetailView: View {
                         Text(lead.timestamp, style: .date)
                     }
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                 }
                 .padding(.horizontal)
                 
@@ -44,24 +55,23 @@ struct LeadDetailView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
                             Image(systemName: "sparkles")
-                                .foregroundColor(.blue)
+                                .foregroundStyle(.blue)
                             Text("AI 分析摘要")
                                 .font(.headline)
                         }
                         
                         Text(analysis)
                             .font(.body)
-                            .foregroundColor(.primary)
+                            .foregroundStyle(.primary)
                             .padding()
-                            .background(Color.blue.opacity(0.05))
-                            .cornerRadius(12)
+                            .background(.blue.opacity(0.08), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                     }
                     .padding(.horizontal)
                 }
                 
                 // Content section
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("采集详情")
+                    Text("稽查详情")
                         .font(.headline)
                     Text(lead.content)
                         .font(.body)
@@ -74,7 +84,7 @@ struct LeadDetailView: View {
                         .font(.headline)
                     HStack {
                         Image(systemName: "mappin.and.ellipse")
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                         Text(lead.location)
                             .font(.body)
                     }
@@ -89,10 +99,8 @@ struct LeadDetailView: View {
     }
 }
 
-struct LeadDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            LeadDetailView(lead: Lead.mockLeads[1])
-        }
+#Preview {
+    NavigationStack {
+        LeadDetailView(lead: DataStore().leads[0])
     }
 }

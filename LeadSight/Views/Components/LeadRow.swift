@@ -5,16 +5,12 @@ struct LeadRow: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            // Image Placeholder/Thumbnail
-            ZStack {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.1), Color.blue.opacity(0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .frame(width: 64, height: 64)
-                
-                Image(systemName: lead.imageName == "fire_lane" ? "flame.fill" : "person.2.fill")
-                    .font(.system(size: 24, weight: .medium))
-                    .foregroundColor(.blue)
-            }
+            // Icon thumbnail using model's computed property
+            Image(systemName: lead.systemImageName)
+                .font(.system(size: 22, weight: .medium))
+                .foregroundStyle(.blue)
+                .frame(width: 52, height: 52)
+                .background(.blue.opacity(0.1), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(lead.title)
@@ -24,22 +20,25 @@ struct LeadRow: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 
-                HStack {
-                    Text(lead.timestamp, style: .time)
-                    Text("•")
+                HStack(spacing: 4) {
+                    Text(lead.timestamp, style: .relative)
+                    Text("·")
                     Text(lead.location)
+                        .lineLimit(1)
                 }
                 .font(.caption2)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.tertiary)
             }
             
             Spacer()
             
-            Image(systemName: "chevron.right")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
+            // Status indicator
+            Text(lead.status.rawValue)
+                .font(.caption2)
+                .fontWeight(.medium)
+                .foregroundStyle(lead.status.color)
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, 4)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("线索: \(lead.title)")
         .accessibilityValue("报告人: \(lead.reporter), 地点: \(lead.location)")
@@ -47,7 +46,6 @@ struct LeadRow: View {
 }
 
 #Preview {
-    let dataStore = DataStore()
-    return LeadRow(lead: dataStore.leads[0])
+    LeadRow(lead: DataStore().leads[0])
         .padding(.horizontal)
 }
