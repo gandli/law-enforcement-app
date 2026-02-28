@@ -1,0 +1,44 @@
+# SwiftLint Configuration for LeadSight
+
+included:
+  - LeadSight
+
+excluded:
+  - LeadSight/Preview Content
+
+disabled_rules:
+  - trailing_whitespace
+  - line_length
+  - function_body_length
+
+opt_in_rules:
+  - empty_count
+  - closure_spacing
+  - contains_over_first_not_nil
+  - discouraged_optional_boolean
+  - empty_string
+  - modifier_order
+  - overridden_super_call
+  - private_action
+  - private_outlet
+  - sorted_imports
+
+line_length:
+  warning: 150
+  error: 200
+
+type_body_length:
+  warning: 300
+  error: 500
+
+file_length:
+  warning: 500
+  error: 800
+
+identifier_name:
+  min_length: 1
+  max_length: 60
+
+nesting:
+  type_level: 3
+  function_level: 3
