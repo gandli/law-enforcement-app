@@ -43,7 +43,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             | xcpretty || true
 
-      - name: Boot Simulator & Capture
+      - name: Boot Simulator & Run App
         run: |
           DEVICE_UDID=$(xcrun simctl list devices available -j | python3 -c "
           import json, sys
@@ -58,10 +58,24 @@ jobs:
                       sys.exit(0)
           sys.exit(1)
           ")
+          
+          echo "Booting simulator $DEVICE_UDID..."
           xcrun simctl boot "$DEVICE_UDID" 2>/dev/null || true
-          sleep 5
+          sleep 3
+          
+          echo "Installing app..."
+          xcrun simctl install "$DEVICE_UDID" \
+            $(find ~/Library/Developer/Xcode/DerivedData -name "LeadSight.app" -type d | head -1)
+          
+          echo "Launching app..."
+          xcrun simctl launch "$DEVICE_UDID" gandli.LeadSight
+          
+          echo "Waiting for app to load..."
+          sleep 10
+          
           mkdir -p screenshots
           xcrun simctl io "$DEVICE_UDID" screenshot "screenshots/${{ matrix.device }}.png"
+          echo "Screenshot saved to screenshots/${{ matrix.device }}.png"
 
       - name: Upload Screenshots
         uses: actions/upload-artifact@v4
