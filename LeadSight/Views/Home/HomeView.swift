@@ -2,27 +2,18 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(DataStore.self) private var dataStore
-    let userName = "执勤人员"
     let dutyID = "SP-9527"
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 28) {
+                LazyVStack(alignment: .leading, spacing: 28) {
                     // Smart Judgment Section
                     VStack(alignment: .leading, spacing: 16) {
-                        HStack {
-                            Text("智能研判")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                            Spacer()
-                            Button("查看全部") { }
-                                .font(.subheadline)
-                        }
-                        .padding(.horizontal)
+                        SectionHeader(title: "智能研判", actionTitle: "查看全部") {}
                         
                         ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 16) {
+                            LazyHStack(spacing: 16) {
                                 ForEach(dataStore.warnings) { warning in
                                     WarningCard(warning: warning)
                                 }
@@ -33,10 +24,7 @@ struct HomeView: View {
                     
                     // Emergency SOS Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("紧急呼救")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .padding(.horizontal)
+                        SectionHeader(title: "紧急呼救")
                         
                         EmergencyButton(action: {
                             print("SOS triggered")
@@ -45,17 +33,9 @@ struct HomeView: View {
                     
                     // Recent Leads Section
                     VStack(alignment: .leading, spacing: 16) {
-                        HStack {
-                            Text("最新稽查")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                            Spacer()
-                            Button("查看全部") { }
-                                .font(.subheadline)
-                        }
-                        .padding(.horizontal)
+                        SectionHeader(title: "最新稽查", actionTitle: "查看全部") {}
                         
-                        VStack(spacing: 0) {
+                        LazyVStack(spacing: 0) {
                             ForEach(dataStore.leads) { lead in
                                 LeadRow(lead: lead)
                                     .padding(.horizontal)
