@@ -30,7 +30,7 @@ struct EvidenceDetailView: View {
                 
                 // Metadata
                 HStack {
-                    Label(evidence.timestamp, format: .dateTime.month().day().hour().minute())
+                    Text(evidence.timestamp, format: .dateTime.month().day().hour().minute())
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                     Spacer()
