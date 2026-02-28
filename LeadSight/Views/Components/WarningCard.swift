@@ -18,7 +18,8 @@ struct WarningCard: View {
                 Spacer()
                 
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(warning.severity.color)
+                    .symbolRenderingMode(.multicolor)
+                    .symbolEffect(.bounce, value: warning.severity == .critical)
             }
             
             Text(warning.title)
@@ -32,11 +33,11 @@ struct WarningCard: View {
         }
         .padding()
         .frame(width: 260, height: 160)
-        .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color(UIColor.secondarySystemBackground))
-                .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
-        )
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .shadow(color: .black.opacity(0.05), radius: 10, y: 5)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(warning.type): \(warning.title)")
+        .accessibilityValue(warning.description)
     }
 }
 

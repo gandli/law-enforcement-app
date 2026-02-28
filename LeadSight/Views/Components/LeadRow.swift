@@ -22,7 +22,7 @@ struct LeadRow: View {
                 
                 Text(lead.reporter)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                 
                 HStack {
                     Text(lead.timestamp, style: .time)
@@ -30,16 +30,19 @@ struct LeadRow: View {
                     Text(lead.location)
                 }
                 .font(.caption2)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
             }
             
             Spacer()
             
             Image(systemName: "chevron.right")
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.tertiary)
         }
         .padding(.vertical, 8)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("线索: \(lead.title)")
+        .accessibilityValue("报告人: \(lead.reporter), 地点: \(lead.location)")
     }
 }
 

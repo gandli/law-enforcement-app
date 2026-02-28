@@ -6,9 +6,9 @@ struct HomeView: View {
     let dutyID = "SP-9527"
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 28) {
                     // Smart Judgment Section
                     VStack(alignment: .leading, spacing: 16) {
                         HStack {
@@ -70,16 +70,17 @@ struct HomeView: View {
             }
             .navigationTitle("首页")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {}) {
                         Image(systemName: "person.circle.fill")
-                            .foregroundColor(.blue)
+                            .symbolRenderingMode(.hierarchical)
+                            .font(.title3)
                     }
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     Text("编号: \(dutyID)")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 }
             }
         }

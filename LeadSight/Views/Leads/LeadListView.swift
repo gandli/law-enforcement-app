@@ -5,7 +5,7 @@ struct LeadListView: View {
     @State private var searchText = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(dataStore.leads) { lead in
                     NavigationLink(destination: LeadDetailView(lead: lead)) {
@@ -13,11 +13,11 @@ struct LeadListView: View {
                     }
                 }
             }
-            .listStyle(PlainListStyle())
+            .listStyle(.insetGrouped)
             .navigationTitle("线索")
             .searchable(text: $searchText, prompt: "搜索线索、地点或人员")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {}) {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
