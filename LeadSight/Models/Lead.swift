@@ -11,6 +11,8 @@ struct Lead: Identifiable, Codable, Hashable {
     let status: LeadStatus
     let aiAnalysis: String?
     let imageName: String?
+    var evidences: [Evidence]
+    var relatedLeadIDs: [UUID]
     
     enum LeadStatus: String, Codable {
         case pending = "待处理"
@@ -38,5 +40,18 @@ struct Lead: Identifiable, Codable, Hashable {
         case "seller": return "person.badge.shield.checkmark.fill"
         default: return "doc.text.fill"
         }
+    }
+    
+    /// All searchable text from evidence
+    var searchableEvidenceText: String {
+        evidences.compactMap { evidence in
+            let parts = [
+                evidence.structuredData?.ocrText,
+                evidence.structuredData?.transcription,
+                evidence.structuredData?.licensePlates.joined(separator: " "),
+                evidence.structuredData?.objectTags.joined(separator: " ")
+            ]
+            return parts.compactMap { $0 }.joined(separator: " ")
+        }.joined(separator: " ")
     }
 }

@@ -10,7 +10,7 @@ struct MainTabView: View {
             
             LeadListView()
                 .tabItem {
-                    Label("稽查线索", systemImage: "list.bullet.rectangle.portrait.fill")
+                    Label("线索", systemImage: "list.bullet.rectangle.portrait.fill")
                 }
             
             ProfileView()
