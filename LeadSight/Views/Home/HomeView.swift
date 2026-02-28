@@ -1,0 +1,92 @@
+import SwiftUI
+
+struct HomeView: View {
+    let userName = "执勤人员"
+    let dutyID = "SP-9527"
+    
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    // Smart Judgment Section
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            Text("智能研判")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            Spacer()
+                            Button("查看全部") { }
+                                .font(.subheadline)
+                        }
+                        .padding(.horizontal)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 16) {
+                                ForEach(Warning.mockWarnings) { warning in
+                                    WarningCard(warning: warning)
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                    }
+                    
+                    // Emergency SOS Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("紧急呼救")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding(.horizontal)
+                        
+                        EmergencyButton(action: {
+                            print("SOS triggered")
+                        })
+                    }
+                    
+                    // Recent Leads Section
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            Text("最近采集")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            Spacer()
+                            Button("查看全部") { }
+                                .font(.subheadline)
+                        }
+                        .padding(.horizontal)
+                        
+                        VStack(spacing: 0) {
+                            ForEach(Lead.mockLeads) { lead in
+                                LeadRow(lead: lead)
+                                    .padding(.horizontal)
+                                if lead.id != Lead.mockLeads.last?.id {
+                                    Divider().padding(.leading, 86)
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding(.vertical)
+            }
+            .navigationTitle("首页")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {}) {
+                        Image(systemName: "person.circle.fill")
+                            .foregroundColor(.blue)
+                    }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("编号: \(dutyID)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
+    }
+}
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+    }
+}
