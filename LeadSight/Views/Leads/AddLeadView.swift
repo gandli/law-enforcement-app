@@ -42,7 +42,7 @@ struct AddLeadView: View {
                     TextField("报告人", text: $reporter)
                 }
                 
-                Section("稽查详情") {
+                Section("线索详情") {
                     TextEditor(text: $content)
                         .frame(minHeight: 100)
                 }

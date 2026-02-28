@@ -30,7 +30,7 @@ struct LeadListView: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("稽查线索")
+            .navigationTitle("线索")
             .navigationDestination(for: Lead.self) { lead in
                 LeadDetailView(lead: lead)
             }

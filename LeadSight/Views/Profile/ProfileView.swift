@@ -27,7 +27,7 @@ struct ProfileView: View {
                         StatsView()
                     } label: {
                         HStack {
-                            Label("今日稽查", systemImage: "pencil.and.outline")
+                            Label("今日线索", systemImage: "pencil.and.outline")
                             Spacer()
                             Text("\(dataStore.leads.count)")
                                 .foregroundStyle(.secondary)

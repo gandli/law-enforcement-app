@@ -36,7 +36,7 @@ struct HomeView: View {
                     
                     // Recent Leads Section
                     VStack(alignment: .leading, spacing: 16) {
-                        SectionHeader(title: "最新稽查", actionTitle: "查看全部") {}
+                        SectionHeader(title: "最新线索", actionTitle: "查看全部") {}
                         
                         LazyVStack(spacing: 0) {
                             ForEach(dataStore.leads) { lead in

@@ -73,7 +73,7 @@ struct LeadDetailView: View {
                 
                 // Content section
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("稽查详情")
+                    Text("线索详情")
                         .font(.headline)
                     Text(lead.content)
                         .font(.body)
