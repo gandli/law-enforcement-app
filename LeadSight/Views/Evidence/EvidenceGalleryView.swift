@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EvidenceGalleryView: View {
     let evidences: [Evidence]
-    @State private var selectedFilter: Evidence.EvidenceType? = nil
+    @State private var selectedFilter: Evidence.EvidenceType?
     
     private var filtered: [Evidence] {
         guard let filter = selectedFilter else { return evidences }
@@ -89,7 +89,7 @@ private struct EvidenceThumbnail: View {
 
 private struct FilterChip: View {
     let label: String
-    var icon: String? = nil
+    var icon: String?
     let isSelected: Bool
     let action: () -> Void
     

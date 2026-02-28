@@ -63,8 +63,8 @@ struct ProfileView: View {
                 }
                 
                 Section {
-                    Button(role: .destructive, action: {}) {
-                        Text("退出登录")
+                    Button("退出登录", role: .destructive) {
+                        // logout action
                     }
                 }
             }

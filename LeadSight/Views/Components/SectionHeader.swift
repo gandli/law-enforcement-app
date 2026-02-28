@@ -3,8 +3,8 @@ import SwiftUI
 /// Reusable section header with optional action button
 struct SectionHeader: View {
     let title: String
-    var actionTitle: String? = nil
-    var action: (() -> Void)? = nil
+    var actionTitle: String?
+    var action: (() -> Void)?
     
     var body: some View {
         HStack {

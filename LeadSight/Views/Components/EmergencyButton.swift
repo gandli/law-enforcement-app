@@ -5,12 +5,12 @@ struct EmergencyButton: View {
     @State private var isPressed = false
     
     var body: some View {
-        Button(action: {
+        Button {
             let generator = UINotificationFeedbackGenerator()
             generator.prepare()
             generator.notificationOccurred(.error)
             action()
-        }) {
+        } label: {
             VStack(spacing: 8) {
                 Image(systemName: "sos.circle.fill")
                     .font(.system(size: 44))

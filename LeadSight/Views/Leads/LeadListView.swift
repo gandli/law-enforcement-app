@@ -45,7 +45,9 @@ struct LeadListView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {}) {
+                    Button {
+                        // filter action
+                    } label: {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
                 }

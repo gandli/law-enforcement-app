@@ -63,7 +63,9 @@ struct HomeView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {}) {
+                    Button {
+                        // profile action
+                    } label: {
                         Image(systemName: "person.circle.fill")
                             .symbolRenderingMode(.hierarchical)
                             .font(.title3)
