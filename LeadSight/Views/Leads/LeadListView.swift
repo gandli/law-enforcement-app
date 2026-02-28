@@ -3,6 +3,7 @@ import SwiftUI
 struct LeadListView: View {
     @Environment(DataStore.self) private var dataStore
     @State private var searchText = ""
+    @State private var showingAddLead = false
     
     private var filteredLeads: [Lead] {
         if searchText.isEmpty {
@@ -23,6 +24,9 @@ struct LeadListView: View {
                         LeadRow(lead: lead)
                     }
                 }
+                .onDelete { offsets in
+                    dataStore.deleteLead(at: offsets)
+                }
             }
             .listStyle(.insetGrouped)
             .navigationTitle("稽查线索")
@@ -32,10 +36,21 @@ struct LeadListView: View {
             .searchable(text: $searchText, prompt: "搜索零售户、证号或稽查地点")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingAddLead = true
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                            .symbolRenderingMode(.hierarchical)
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
                     Button(action: {}) {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                     }
                 }
+            }
+            .sheet(isPresented: $showingAddLead) {
+                AddLeadView()
             }
         }
     }
